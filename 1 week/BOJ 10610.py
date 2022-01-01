@@ -1,16 +1,15 @@
-def div(n):
-    n_length = len(str(n))
-    total = []
-    for _ in range(n_length):
-        total.append(str(n % 10))
-        n = n // 10
-    return total
+total_list = []
+total = 0
 
-n = int(input())
-div_list = div(n)
-print(div_list)
-div_len = len(div_list)
+n = input()
+for i in n:
+    total += int(i)
+    total_list.append(i)
+    
+total_list = sorted(total_list, reverse = True)
 
-for i in range(div_len):
-    if div_list[i] == '0':
-        continue
+if total % 3 != 0 or total_list[-1] != '0':
+    print(-1)
+    
+else:
+    print(''.join(total_list))
