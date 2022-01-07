@@ -1,15 +1,21 @@
-ice_n = input().split()
-ice_ncombine = []
-count = 0
+import sys
 
-for i in range(int(ice_n[1])):
-    n = input().split()
-    ice_ncombine.append((int(n[0]), int(n[1])))
+ice_num, ice_no_mix_num = map(int, sys.stdin.readline().split())
+no_mix_list = [[0 for _ in range(201)] for _ in range(201)]
+total = 0
 
-for i in range(1, int(ice_n[0])):
-    for j in range(i + 1, int(ice_n[0]) + 1):
-        if ((i, j) in ice_ncombine) or ((j, i)) in ice_ncombine:
+for i in range(ice_no_mix_num):
+    no_mix_1, no_mix_2 = map(int, sys.stdin.readline().split())
+    no_mix_list[no_mix_1][no_mix_2] = 1
+    no_mix_list[no_mix_2][no_mix_1] = 1
+
+for i in range(1, ice_num + 1):
+    for j in range(i + 1, ice_num + 1):
+        if no_mix_list[i][j]:
             continue
-        count += 1
-        
-print(count)
+        for e in range(j + 1, ice_num + 1):
+            if no_mix_list[i][e] or no_mix_list[j][e]:
+                continue
+            else:    
+                total += 1
+print(total)
